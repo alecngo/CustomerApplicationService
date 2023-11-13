@@ -1,4 +1,4 @@
-using MySql.Data.MySqlClient;
+using Npgsql;
 
 public class CustomerService
 {
@@ -11,12 +11,12 @@ public class CustomerService
 
     public void AddCustomer(Customer customer)
     {
-        using MySqlConnection connection = new MySqlConnection(_connectionString);
+        using NpgsqlConnection connection = new NpgsqlConnection(_connectionString);
         connection.Open();
 
         string query = "INSERT INTO customers (Email, PhoneNumber, FirstName, LastName, PasswordHash) VALUES (@Email, @PhoneNumber, @FirstName, @LastName, @PasswordHash)";
         
-        using MySqlCommand cmd = new MySqlCommand(query, connection);
+        using NpgsqlCommand cmd = new NpgsqlCommand(query, connection);
         cmd.Parameters.AddWithValue("@Email", customer.Email);
         cmd.Parameters.AddWithValue("@PhoneNumber", customer.PhoneNumber);
         cmd.Parameters.AddWithValue("@FirstName", customer.FirstName);

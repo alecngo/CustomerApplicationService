@@ -1,4 +1,4 @@
-using MySql.Data.MySqlClient;
+using Npgsql;
 
 public class AnimalService
 {
@@ -14,13 +14,13 @@ public class AnimalService
     {
         Animal? animal = null;
 
-        using (MySqlConnection connection = new MySqlConnection(_connectionString))
+        using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString))
         {
             connection.Open();
-            using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM Animals WHERE Id = @Id", connection))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM Animals WHERE Id = @Id", connection))
             {
                 cmd.Parameters.AddWithValue("@Id", id);
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                using (NpgsqlDataReader reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
                     {
@@ -47,10 +47,10 @@ public class AnimalService
     // Add a new animal
     public void AddAnimal(Animal animal)
     {
-        using (MySqlConnection connection = new MySqlConnection(_connectionString))
+        using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString))
         {
             connection.Open();
-            using (MySqlCommand cmd = new MySqlCommand("INSERT INTO Animals (RescueCentre, Breed, ImageUrl, Adoptable) VALUES (@RescueCentre, @Breed, @ImageUrl, @Adoptable)", connection))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO Animals (RescueCentre, Breed, ImageUrl, Adoptable) VALUES (@RescueCentre, @Breed, @ImageUrl, @Adoptable)", connection))
             {
                 cmd.Parameters.AddWithValue("@RescueCentre", animal.RescueCentre);
                 cmd.Parameters.AddWithValue("@Breed", animal.Breed);
@@ -65,10 +65,10 @@ public class AnimalService
     // Update the Adoptable status of an animal
     public void UpdateAdoptableStatus(int animalId, bool adoptableStatus)
     {
-        using (MySqlConnection connection = new MySqlConnection(_connectionString))
+        using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString))
         {
             connection.Open();
-            using (MySqlCommand cmd = new MySqlCommand("UPDATE Animals SET Adoptable = @Adoptable WHERE Id = @Id", connection))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE Animals SET Adoptable = @Adoptable WHERE Id = @Id", connection))
             {
                 cmd.Parameters.AddWithValue("@Id", animalId);
                 cmd.Parameters.AddWithValue("@Adoptable", adoptableStatus);
@@ -81,10 +81,10 @@ public class AnimalService
     // Delete an animal by its ID
     public void DeleteAnimal(int id)
     {
-        using (MySqlConnection connection = new MySqlConnection(_connectionString))
+        using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString))
         {
             connection.Open();
-            using (MySqlCommand cmd = new MySqlCommand("DELETE FROM Animals WHERE Id = @Id", connection))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("DELETE FROM Animals WHERE Id = @Id", connection))
             {
                 cmd.Parameters.AddWithValue("@Id", id);
                 cmd.ExecuteNonQuery();

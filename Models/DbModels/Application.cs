@@ -3,7 +3,7 @@ public class Application
     public int Id { get; set; }
     public DateTime Date { get; set; }
     
-    public int CustomerId { get; set; } = default!; // Foreign key reference to the users table
+    public int CustomerId { get; set; } = default!; // Foreign key reference to the Customers table
     public Customer Customer { get; set; } = default!; // Navigation property
 
     public int AnimalId { get; set; }  // Foreign key reference to the animals table

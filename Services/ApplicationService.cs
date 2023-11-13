@@ -1,4 +1,4 @@
-using MySql.Data.MySqlClient;
+using Npgsql;
 
 public class ApplicationService
 {
@@ -13,13 +13,13 @@ public class ApplicationService
     {
         Application? application = null;
 
-        using (MySqlConnection connection = new MySqlConnection(_connectionString))
+        using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString))
         {
             connection.Open();
-            using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM Applications WHERE Id = @Id", connection))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM Applications WHERE Id = @Id", connection))
             {
                 cmd.Parameters.AddWithValue("@Id", id);
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                using (NpgsqlDataReader reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
                     {
@@ -46,13 +46,13 @@ public class ApplicationService
     // Add a new application
     public void AddApplication(Application application)
     {
-        using (MySqlConnection connection = new MySqlConnection(_connectionString))
+        using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString))
         {
             connection.Open();
-            using (MySqlCommand cmd = new MySqlCommand("INSERT INTO Applications (Date, User, Animal, Status) VALUES (@Date, @User, @Animal, @Status)", connection))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO Applications (Date, Customer, Animal, Status) VALUES (@Date, @Customer, @Animal, @Status)", connection))
             {
                 cmd.Parameters.AddWithValue("@Date", application.Date);
-                cmd.Parameters.AddWithValue("@User", application.CustomerId);
+                cmd.Parameters.AddWithValue("@Customer", application.CustomerId);
                 cmd.Parameters.AddWithValue("@Animal", application.AnimalId);
                 cmd.Parameters.AddWithValue("@Status", application.Status);
 
@@ -64,10 +64,10 @@ public class ApplicationService
     // Update the status of an application
     public void UpdateApplicationStatus(int applicationId, string newStatus)
     {
-        using (MySqlConnection connection = new MySqlConnection(_connectionString))
+        using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString))
         {
             connection.Open();
-            using (MySqlCommand cmd = new MySqlCommand("UPDATE Applications SET Status = @Status WHERE Id = @Id", connection))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("UPDATE Applications SET Status = @Status WHERE Id = @Id", connection))
             {
                 cmd.Parameters.AddWithValue("@Id", applicationId);
                 cmd.Parameters.AddWithValue("@Status", newStatus);
@@ -80,10 +80,10 @@ public class ApplicationService
     // Delete an application by its ID
     public void DeleteApplication(int id)
     {
-        using (MySqlConnection connection = new MySqlConnection(_connectionString))
+        using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString))
         {
             connection.Open();
-            using (MySqlCommand cmd = new MySqlCommand("DELETE FROM Applications WHERE Id = @Id", connection))
+            using (NpgsqlCommand cmd = new NpgsqlCommand("DELETE FROM Applications WHERE Id = @Id", connection))
             {
                 cmd.Parameters.AddWithValue("@Id", id);
                 cmd.ExecuteNonQuery();
