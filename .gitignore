@@ -1,6 +1,4 @@
-bin/
-obj/
-*.csproj
-*.sln
-appsettings.json
-appsettings.Development.json
+.env
+__pycache__/
+*.pyc
+instance/
