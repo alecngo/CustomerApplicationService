@@ -1,4 +1,6 @@
 Flask
 pymongo[srv]
 Flask-PyMongo
-Flask-Cors
+flask_restful
+python-dotenv
+redis
