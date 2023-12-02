@@ -1,7 +1,10 @@
 from flask import jsonify
 import os
+from dotenv import load_dotenv
 from app import app
 import redis 
+
+load_dotenv()
 
 r = redis.Redis(host="redis", port=6379)
 
@@ -17,6 +20,4 @@ def read_root():
 
 if __name__ == "__main__":
     app.config['DEBUG'] = True
-    app.config['MONGO_URI'] = os.getenv("MONGO_URI")
-
     app.run(host='0.0.0.0', port=8001)
