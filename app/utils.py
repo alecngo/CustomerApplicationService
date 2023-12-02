@@ -3,7 +3,10 @@ from flask import jsonify, request
 from bson import ObjectId
 from .db import MongoSingleton
 from pymongo.errors import DuplicateKeyError
+import logging
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class MongoAPI(MethodView):
 
@@ -47,6 +50,7 @@ class MongoAPI(MethodView):
             return jsonify({"success": False, "message": str(e)}), 500
 
     def get(self, document_id):
+        logger.info("ID: %s", document_id)
         if not document_id:
             return jsonify({"error": "Missing _id parameter"}), 400
 
