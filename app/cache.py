@@ -28,5 +28,3 @@ class RedisSingleton:
 # Usage
 redis_instance = RedisSingleton()
 redis_client = redis_instance.client
-
-# Now you can use `redis_client.set()` or `redis_client.get()` to interact with Redis.

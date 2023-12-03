@@ -53,17 +53,17 @@ class CustomersMongoAPI(MongoAPI):
     def handle_application_update(self, data, new_status="Pending"):
         customer_id = data['customer_id']
         animal_id = data['animal_id']
-        if data.get('status'):
-            new_status = data['status']
+        if data.get('new_status'):
+            new_status = data['new_status']
+
+        if new_status not in self.allowed_statuses:
+            return jsonify({"error": "Invalid status"}), 400
 
         response, status_code = super().get(customer_id)
         if status_code != 200:
             return response, status_code
 
         customer_data = response.get_json()
-        
-        if new_status not in self.allowed_statuses:
-            return jsonify({"error": "Invalid status"}), 400
         
         # Add or update the application in the customer data
         application = {'status': new_status}
