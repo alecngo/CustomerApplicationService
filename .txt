@@ -10,10 +10,10 @@ curl -X PUT http://localhost:8001/customer \
 
 curl -X DELETE http://localhost:8001/customer?_id=customer_id
 
-curl -X PUT http://localhost:8001/application \
+curl -X PUT http://localhost:8001/customer \
      -H "Content-Type: application/json" \
      -d '{"customer_id": "customer_id", "animal_id": "animal_id"}'
 
-curl -X PUT http://localhost:8001/application \
+curl -X PUT http://localhost:8001/customer \
      -H "Content-Type: application/json" \
      -d '{"customer_id": "customer_id", "animal_id": "animal_id", "new_status": "Approved"}'
