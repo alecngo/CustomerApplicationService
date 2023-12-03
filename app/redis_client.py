@@ -24,7 +24,3 @@ class RedisSingleton:
             )
         else:
             raise EnvironmentError("REDIS_HOST, REDIS_PORT, and REDIS_PASSWORD environment variables must be set.")
-
-# Usage
-redis_instance = RedisSingleton()
-redis_client = redis_instance.client
